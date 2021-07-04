@@ -1,0 +1,27 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "no-unused-vars": [2, { "args": "all", "argsIgnorePattern": "^_+" }],
+    "import/prefer-default-export": "off",
+    "no-template-curly-in-string": "off",
+    "no-restricted-syntax": "off",
+    "no-await-in-loop": "off",
+    "react/react-in-jsx-scope": "off"
+  }
+}
