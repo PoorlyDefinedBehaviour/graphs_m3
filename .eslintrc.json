@@ -22,6 +22,7 @@
     "no-template-curly-in-string": "off",
     "no-restricted-syntax": "off",
     "no-await-in-loop": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "no-continue": "off"
   }
 }
