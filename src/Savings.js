@@ -97,7 +97,7 @@ export const calculateRoutes = (
       cost: costMatrix[from.customer][to.customer],
       routeIndex: from.routeIndex,
     }
-    console.log("newConnection", newConnection)
+
     const routePath = [
       ...fromRoute.path.filter(edge => edge.to !== startingPoint),
       newConnection,

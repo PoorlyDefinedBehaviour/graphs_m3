@@ -1,4 +1,4 @@
-import { Sigma } from "react-sigma"
+import ReactFlow from "react-flow-renderer"
 import * as savings from "./Savings"
 
 const randomHexColor = () => `#${Math.random().toString(16).substr(2, 6)}`
@@ -54,46 +54,51 @@ function App() {
     dailyVehicleDistance: 30,
   })
 
-  console.log("aaaa", JSON.stringify(routes, null, 2))
-
   const nodes = Object.keys(costMatrix).map((vertex, i) => ({
     id: vertex,
-    label: vertex,
-    size: 100,
-    x: Math.cos(i),
-    y: Math.sin(i),
+    data: { label: vertex },
+    position: {
+      x: Math.cos(i) * 300,
+      y: Math.sin(i) * 300,
+    },
   }))
 
   const edges = routes.flatMap(route => {
     const color = randomHexColor()
 
+    if (route.path.length === 2) {
+      const [fromEdge, toEdge] = route.path
+
+      return [
+        {
+          id: `${fromEdge.from} -> ${fromEdge.to}`,
+          label: `${fromEdge.from} -> ${fromEdge.to} - Cost: ${fromEdge.cost} | ${toEdge.from} -> ${toEdge.to} - Cost ${toEdge.cost}`,
+          type: "straight",
+          source: fromEdge.from,
+          target: fromEdge.to,
+          style: {
+            stroke: color,
+          },
+        },
+      ]
+    }
+
     return route.path.map(edge => ({
       id: `${edge.from} -> ${edge.to}`,
-      label: `${edge.from} -> ${edge.to}`,
+      label: `${edge.from} -> ${edge.to} - Cost: ${edge.cost}`,
+      type: "straight",
       source: edge.from,
       target: edge.to,
-      color,
+      style: {
+        stroke: color,
+      },
     }))
   })
-  console.log(edges)
-  const graph = {
-    nodes,
-    edges, // : [{ id: "e1", source: "A", target: "B", label: "SEES" }],
-  }
 
-  console.log("graph", JSON.stringify(graph, null, 2))
+  const graph = [...nodes, ...edges]
 
   return (
-    <Sigma
-      style={{ width: "1000px", height: "1000px" }}
-      graph={graph}
-      settings={{
-        drawLabels: true,
-        drawEdgeLabels: true,
-        drawEdges: true,
-        clone: true,
-      }}
-    />
+    <ReactFlow elements={graph} style={{ width: "100%", height: "100vh" }} />
   )
 }
 
