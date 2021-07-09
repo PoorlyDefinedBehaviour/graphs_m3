@@ -29,7 +29,9 @@ const calculateSavings = (costMatrix, routes, startingPoint) => {
     }
   }
 
-  return savings
+  return savings.sort(
+    (a, b) => b.cost - a.cost
+  )
 }
 
 const buildInitialRoutes = (costMatrix, startingPoint) => {
@@ -75,9 +77,7 @@ export const calculateRoutes = (
   { startingPoint, dailyVehicleDistance }
 ) => {
   const routes = buildInitialRoutes(costMatrix, startingPoint)
-  const savings = calculateSavings(costMatrix, routes, startingPoint).sort(
-    (a, b) => a.cost < b.cost
-  )
+  const savings = calculateSavings(costMatrix, routes, startingPoint)
 
   const visitedCustomers = new Set()
 
