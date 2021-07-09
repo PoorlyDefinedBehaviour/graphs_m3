@@ -29,9 +29,7 @@ const calculateSavings = (costMatrix, routes, startingPoint) => {
     }
   }
 
-  return savings.sort(
-    (a, b) => b.cost - a.cost
-  )
+  return savings.sort((a, b) => b.cost - a.cost)
 }
 
 const buildInitialRoutes = (costMatrix, startingPoint) => {
